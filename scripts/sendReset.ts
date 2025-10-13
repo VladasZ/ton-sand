@@ -6,6 +6,6 @@ const contractAddress = Address.parse('kQArHqqCX2eR4bW_u1y9oG7cLA-nmJsKTeD_lfxDY
 
 export async function run(provider: NetworkProvider) {
     const firstContract = provider.open(new VladasSand(contractAddress));
-    await firstContract.sendReset(provider.sender(), { value: toNano('0.05') });
+    await firstContract.sendReset(provider.sender());
     await provider.waitForLastTransaction();
 }

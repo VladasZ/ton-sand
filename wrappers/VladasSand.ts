@@ -1,4 +1,14 @@
-import { Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode } from '@ton/core';
+import {
+    Address,
+    beginCell,
+    Cell,
+    Contract,
+    contractAddress,
+    ContractProvider,
+    Sender,
+    SendMode,
+    toNano,
+} from '@ton/core';
 
 export type VladasSandConfig = {};
 
@@ -26,29 +36,34 @@ export class VladasSand implements Contract {
     async sendIncrease(
         provider: ContractProvider,
         via: Sender,
-        opts: {
-            increaseBy: number;
-            value: bigint;
-        },
+        increaseBy: number,
     ) {
         await provider.internal(via, {
-            value: opts.value,
+            value: toNano('0.05'),
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(0x7e8764ef, 32).storeUint(opts.increaseBy, 32).endCell(),
+            body: beginCell().storeUint(0, 4).storeUint(increaseBy, 32).endCell(),
         });
     }
 
     async sendReset(
         provider: ContractProvider,
         via: Sender,
-        opts: {
-            value: bigint;
-        },
     ) {
         await provider.internal(via, {
-            value: opts.value,
+            value: toNano('0.05'),
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(0x3a752f06, 32).endCell(),
+            body: beginCell().storeUint(1, 4).endCell(),
+        });
+    }
+
+    async sendDecrementCounterByOne(
+        provider: ContractProvider,
+        via: Sender,
+    ) {
+        await provider.internal(via, {
+            value: toNano('0.05'),
+            sendMode: SendMode.PAY_GAS_SEPARATELY,
+            body: beginCell().storeUint(2, 4).endCell(),
         });
     }
 

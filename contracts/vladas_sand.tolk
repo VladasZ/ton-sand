@@ -12,13 +12,15 @@ fun Storage.save(self) {
     contract.setData(self.toCell())
 }
 
-struct(0x7e8764ef) IncreaseCounter {
+struct(0x0) IncreaseCounter {
     increaseBy: uint32
 }
 
-struct(0x3a752f06) ResetCounter {}
+struct(0x1) ResetCounter {}
 
-type AllowedMessage = IncreaseCounter | ResetCounter;
+struct(0x2) DecrementCounterByOne {}
+
+type AllowedMessage = IncreaseCounter | ResetCounter | DecrementCounterByOne;
 
 fun onInternalMessage(in: InMessage) {
     // use `lazy` to defer parsing until fields are accessed
@@ -36,6 +38,12 @@ fun onInternalMessage(in: InMessage) {
         ResetCounter => {
             var storage = lazy Storage.load();
             storage.counter = 0;
+            storage.save();
+        }
+
+        DecrementCounterByOne => {
+            var storage = lazy Storage.load();
+            storage.counter -= 1;
             storage.save();
         }
 

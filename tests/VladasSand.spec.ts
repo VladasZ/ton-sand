@@ -18,7 +18,7 @@ describe('VladasSand', () => {
     beforeEach(async () => {
         blockchain = await Blockchain.create();
 
-        vladasSand = blockchain.openContract(VladasSand.createFromConfig({}, code));
+        vladasSand = blockchain.openContract(VladasSand.createFromConfig({ counter: 20 }, code));
 
         deployer = await blockchain.treasury('deployer');
 
@@ -30,6 +30,21 @@ describe('VladasSand', () => {
             deploy: true,
             success: true,
         });
+
+        console.log(await vladasSand.getCounter());
+
+        await vladasSand.sendIncrease(deployer.getSender(), 5);
+
+        console.log(await vladasSand.getCounter());
+
+        await vladasSand.sendDecrementCounterByOne(deployer.getSender());
+
+        console.log(await vladasSand.getCounter());
+
+        await vladasSand.sendReset(deployer.getSender());
+
+        console.log(await vladasSand.getCounter());
+
     });
 
     it('should deploy', async () => {
