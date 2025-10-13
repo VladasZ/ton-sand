@@ -12,13 +12,13 @@ fun Storage.save(self) {
     contract.setData(self.toCell())
 }
 
-struct(0x0) IncreaseCounter {
+struct(0x00000000) IncreaseCounter {
     increaseBy: uint32
 }
 
-struct(0x1) ResetCounter {}
+struct(0x00000001) ResetCounter {}
 
-struct(0x2) DecrementCounterByOne {}
+struct(0x00000002) DecrementCounterByOne {}
 
 type AllowedMessage = IncreaseCounter | ResetCounter | DecrementCounterByOne;
 

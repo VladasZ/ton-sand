@@ -10,7 +10,10 @@ import {
     toNano,
 } from '@ton/core';
 
-export type VladasSandConfig = {};
+export const CONTRACT_ADDRESS: string = "kQDkMUQfWDmWiHMgWWpzrHx5pxhCmIVaUo-0wLkbVA6kFC3_";
+export const DEPLOY_FEE: bigint = toNano('0.0005');
+export const FEE: bigint = toNano('0.005');
+
 
 export class VladasSand implements Contract {
     constructor(readonly address: Address, readonly init?: { code: Cell; data: Cell }) {}
@@ -25,9 +28,9 @@ export class VladasSand implements Contract {
         return new VladasSand(contractAddress(workchain, init), init);
     }
 
-    async sendDeploy(provider: ContractProvider, via: Sender, value: bigint) {
+    async sendDeploy(provider: ContractProvider, via: Sender) {
         await provider.internal(via, {
-            value,
+            value: DEPLOY_FEE,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
             body: beginCell().endCell(),
         });
@@ -39,9 +42,9 @@ export class VladasSand implements Contract {
         increaseBy: number,
     ) {
         await provider.internal(via, {
-            value: toNano('0.05'),
+            value: FEE,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(0, 4).storeUint(increaseBy, 32).endCell(),
+            body: beginCell().storeUint(0x00000000, 32).storeUint(increaseBy, 32).endCell(),
         });
     }
 
@@ -50,9 +53,9 @@ export class VladasSand implements Contract {
         via: Sender,
     ) {
         await provider.internal(via, {
-            value: toNano('0.05'),
+            value: FEE,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(1, 4).endCell(),
+            body: beginCell().storeUint(0xaa554401, 32).endCell(),
         });
     }
 
@@ -61,9 +64,9 @@ export class VladasSand implements Contract {
         via: Sender,
     ) {
         await provider.internal(via, {
-            value: toNano('0.05'),
+            value: FEE,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(2, 4).endCell(),
+            body: beginCell().storeUint(0x00000002, 32).endCell(),
         });
     }
 

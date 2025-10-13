@@ -1,4 +1,4 @@
-import { Blockchain, SandboxContract, TreasuryContract } from '@ton/sandbox';
+import { Blockchain, SandboxContract, SendMessageResult, TreasuryContract } from '@ton/sandbox';
 import { Cell, toNano } from '@ton/core';
 import { VladasSand } from '../wrappers/VladasSand';
 import '@ton/test-utils';
@@ -22,7 +22,7 @@ describe('VladasSand', () => {
 
         deployer = await blockchain.treasury('deployer');
 
-        const deployResult = await vladasSand.sendDeploy(deployer.getSender(), toNano('0.05'));
+        const deployResult = await vladasSand.sendDeploy(deployer.getSender());
 
         expect(deployResult.transactions).toHaveTransaction({
             from: deployer.address,
@@ -33,7 +33,11 @@ describe('VladasSand', () => {
 
         console.log(await vladasSand.getCounter());
 
-        await vladasSand.sendIncrease(deployer.getSender(), 5);
+        let result: SendMessageResult = await vladasSand.sendIncrease(deployer.getSender(), 5);
+        //
+        // result.transactions.pop()?.mode?.toFixed()
+        //
+        // console.log(result);
 
         console.log(await vladasSand.getCounter());
 
