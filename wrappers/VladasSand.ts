@@ -10,8 +10,8 @@ import {
     toNano,
 } from '@ton/core';
 
-export const CONTRACT_ADDRESS: string = "kQAQhy_J_rMk4e-WVsTbaKNvknlnDcQqG1liljI6hrrM4U36";
-export const DEPLOY_FEE: bigint = toNano('0.0005');
+export const CONTRACT_ADDRESS: string = "kQA3RG-QGClZRwoxoDoOm-I3rcu8kXMXGmOe5mPz_GyaPZHC";
+export const DEPLOY_FEE: bigint = toNano('0.005');
 export const FEE: bigint = toNano('0.005');
 
 
@@ -55,7 +55,7 @@ export class VladasSand implements Contract {
         await provider.internal(via, {
             value: FEE,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
-            body: beginCell().storeUint(0xaa554401, 32).endCell(),
+            body: beginCell().storeUint(0x00000001, 32).endCell(),
         });
     }
 
@@ -72,6 +72,7 @@ export class VladasSand implements Contract {
 
     async getCounter(provider: ContractProvider) {
         const result = await provider.get('currentCounter', []);
+
         return result.stack.readNumber();
     }
 }

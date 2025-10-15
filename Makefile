@@ -1,11 +1,14 @@
 deploy:
-	npx blueprint run deployVladasSand --testnet --tonconnect --tonviewer
+	npx blueprint run deploy --testnet --mnemonic --tonviewer
 
 get:
-	npx blueprint run getCounter --testnet --tonconnect
+	npx blueprint run getCounter --testnet --mnemonic
 
 reset:
-	npx blueprint run sendReset --testnet --tonconnect --tonviewer
+	npx blueprint run sendReset --testnet --mnemonic --tonviewer
 
 inc:
-	npx blueprint run sendIncrease --testnet --tonconnect --tonviewer
+	npx blueprint run sendIncrease --testnet --mnemonic --tonviewer
+
+sand:
+	npx blueprint run sand --testnet --mnemonic --tonviewer

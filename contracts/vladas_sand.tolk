@@ -26,7 +26,7 @@ fun onInternalMessage(in: InMessage) {
     // use `lazy` to defer parsing until fields are accessed
     val msg = lazy AllowedMessage.fromSlice(in.body);
 
-    debug.printString("aaaaa");
+    debug.printString("hellooyy");
 
     // matching our union to determine body structure
     match (msg) {

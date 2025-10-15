@@ -3,13 +3,17 @@ import { Cell, toNano } from '@ton/core';
 import { VladasSand } from '../wrappers/VladasSand';
 import '@ton/test-utils';
 import { compile } from '@ton/blueprint';
+import { findTransaction, flattenTransaction } from '@ton/test-utils';
+import { NetworkProvider } from '@ton/blueprint';
 
-describe('VladasSand', () => {
+
+describe('FirstTest', () => {
     let code: Cell;
 
     beforeAll(async () => {
         code = await compile('VladasSand');
     });
+
 
     let blockchain: Blockchain;
     let deployer: SandboxContract<TreasuryContract>;
@@ -30,6 +34,19 @@ describe('VladasSand', () => {
             deploy: true,
             success: true,
         });
+
+        const txToInspect = findTransaction(deployResult.transactions, {
+            to: vladasSand.address,
+            deploy: true,
+        });
+        if (txToInspect == undefined) {
+            throw new Error('Requested tx was not found.');
+        }
+        // User-friendly output
+        console.log(flattenTransaction(txToInspect));
+        // Verbose output
+        console.log(txToInspect);
+
 
         console.log(await vladasSand.getCounter());
 
@@ -56,3 +73,5 @@ describe('VladasSand', () => {
         // blockchain and vladasSand are ready to use
     });
 });
+
+
