@@ -26,7 +26,7 @@ fun onInternalMessage(in: InMessage) {
     // use `lazy` to defer parsing until fields are accessed
     val msg = lazy AllowedMessage.fromSlice(in.body);
 
-    debug.printString("hellooyy");
+    // debug.printString("hellooyy");
 
     // matching our union to determine body structure
     match (msg) {
@@ -52,7 +52,7 @@ fun onInternalMessage(in: InMessage) {
         // this match branch would be executed if message body does not match IncreaseCounter or ResetCounter structures
         else => {
             // reject user message (throw) if body is not empty
-            assert(in.body.isEmpty()) throw 0xFFFF
+            assert(in.body.isEmpty()) throw 0x0007
         }
     }
 }

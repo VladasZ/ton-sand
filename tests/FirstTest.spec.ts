@@ -43,34 +43,32 @@ describe('FirstTest', () => {
             throw new Error('Requested tx was not found.');
         }
         // User-friendly output
-        console.log(flattenTransaction(txToInspect));
-        // Verbose output
-        console.log(txToInspect);
+        // console.log(flattenTransaction(txToInspect));
 
-
-        console.log(await vladasSand.getCounter());
-
-        let result: SendMessageResult = await vladasSand.sendIncrease(deployer.getSender(), 5);
-        //
-        // result.transactions.pop()?.mode?.toFixed()
-        //
-        // console.log(result);
-
-        console.log(await vladasSand.getCounter());
-
-        await vladasSand.sendDecrementCounterByOne(deployer.getSender());
-
-        console.log(await vladasSand.getCounter());
-
-        await vladasSand.sendReset(deployer.getSender());
-
-        console.log(await vladasSand.getCounter());
-
+        console.log("Deployed");
     });
 
-    it('should deploy', async () => {
-        // the check is done inside beforeEach
-        // blockchain and vladasSand are ready to use
+    it('should correctly modify counter', async () => {
+        let counter = await vladasSand.getCounter();
+        expect(counter).toBe(20);
+
+        const resultIncrease: SendMessageResult = await vladasSand.sendIncrease(deployer.getSender(), 5);
+        expect(resultIncrease.transactions).toHaveTransaction({ success: true });
+
+        counter = await vladasSand.getCounter();
+        expect(counter).toBe(25);
+
+        const resultDecrement = await vladasSand.sendDecrementCounterByOne(deployer.getSender());
+        expect(resultDecrement.transactions).toHaveTransaction({ success: true });
+
+        counter = await vladasSand.getCounter();
+        expect(counter).toBe(24);
+
+        const resultReset = await vladasSand.sendReset(deployer.getSender());
+        expect(resultReset.transactions).toHaveTransaction({ success: true });
+
+        counter = await vladasSand.getCounter();
+        expect(counter).toBe(0);
     });
 });
 

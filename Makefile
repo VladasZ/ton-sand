@@ -2,7 +2,7 @@ deploy:
 	npx blueprint run deploy --testnet --mnemonic --tonviewer
 
 get:
-	npx blueprint run getCounter --testnet --mnemonic
+	npx blueprint run getCounter --mnemonic --testnet
 
 reset:
 	npx blueprint run sendReset --testnet --mnemonic --tonviewer

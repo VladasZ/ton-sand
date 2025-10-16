@@ -10,7 +10,7 @@ import {
     toNano,
 } from '@ton/core';
 
-export const CONTRACT_ADDRESS: string = "kQA3RG-QGClZRwoxoDoOm-I3rcu8kXMXGmOe5mPz_GyaPZHC";
+export const CONTRACT_ADDRESS: string = "kQCgpj73jDojRsYS7OQs4xKPE3waE5hh0YdAU-yU4ERtfW3P";
 export const DEPLOY_FEE: bigint = toNano('0.005');
 export const FEE: bigint = toNano('0.005');
 
