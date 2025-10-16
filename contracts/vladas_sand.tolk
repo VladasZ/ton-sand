@@ -12,21 +12,17 @@ fun Storage.save(self) {
     contract.setData(self.toCell())
 }
 
-struct(0x00000000) IncreaseCounter {
+struct(0x00000001) IncreaseCounter {
     increaseBy: uint32
 }
 
-struct(0x00000001) ResetCounter {}
+struct(0x00000002) ResetCounter {}
 
-struct(0x00000002) DecrementCounterByOne {}
-
-type AllowedMessage = IncreaseCounter | ResetCounter | DecrementCounterByOne;
+type AllowedMessage = IncreaseCounter | ResetCounter;
 
 fun onInternalMessage(in: InMessage) {
     // use `lazy` to defer parsing until fields are accessed
     val msg = lazy AllowedMessage.fromSlice(in.body);
-
-    // debug.printString("hellooyy");
 
     // matching our union to determine body structure
     match (msg) {
@@ -43,16 +39,10 @@ fun onInternalMessage(in: InMessage) {
             storage.save();
         }
 
-        DecrementCounterByOne => {
-            var storage = lazy Storage.load();
-            storage.counter -= 1;
-            storage.save();
-        }
-
         // this match branch would be executed if message body does not match IncreaseCounter or ResetCounter structures
         else => {
             // reject user message (throw) if body is not empty
-            assert(in.body.isEmpty()) throw 0x0007
+            assert(in.body.isEmpty()) throw 0xFFFF
         }
     }
 }

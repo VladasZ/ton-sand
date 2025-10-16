@@ -2,7 +2,7 @@ import { VladasSand } from '../wrappers/VladasSand';
 import { compile, NetworkProvider } from '@ton/blueprint';
 
 export async function run(provider: NetworkProvider) {
-    const vladasSand = provider.open(VladasSand.createFromConfig({ counter: 5001 }, await compile('VladasSand')));
+    const vladasSand = provider.open(VladasSand.createFromConfig({ counter: 500 }, await compile('VladasSand')));
 
     // console.log(provider)
 
