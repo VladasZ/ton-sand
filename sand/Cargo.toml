@@ -1,0 +1,13 @@
+[package]
+authors = ["Vladas Zakrevskis <146100@gmail.com>"]
+edition.workspace = true
+name = "sand"
+version.workspace = true
+
+[[bin]]
+name = "sand"
+
+[features]
+default = []
+
+[dependencies]
