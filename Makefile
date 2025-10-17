@@ -1,20 +1,20 @@
 deploy:
-	npx blueprint run deploy --testnet --mnemonic --tonviewer
+	npx blueprint run deploySand --testnet --mnemonic --tonviewer
 
 get:
 	npx blueprint run getCounter --mnemonic --testnet
 
 reset:
-	npx blueprint run sendReset --testnet --mnemonic --tonviewer
+	npx blueprint run resetSand --testnet --mnemonic --tonviewer
 
 inc:
-	npx blueprint run sendIncrease --testnet --mnemonic --tonviewer
+	npx blueprint run incrementSand --testnet --mnemonic --tonviewer
 
 sand:
 	npx blueprint run sand --testnet --mnemonic --tonviewer
 
 build:
-	npx blueprint build VladasSand
+	npx blueprint build Sand
 
 lint:
 	cargo clippy \

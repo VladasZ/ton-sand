@@ -1,4 +1,4 @@
-# ton-sand
+# sand
 
 ## Project structure
 
