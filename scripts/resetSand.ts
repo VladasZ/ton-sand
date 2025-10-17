@@ -1,5 +1,5 @@
 import {toNano} from '@ton/core';
-import {CONTRACT_ADDRESS, Sand} from '../wrappers/Sand';
+import {CALL_VALUE, CONTRACT_ADDRESS, Sand} from '../wrappers/Sand';
 import {NetworkProvider, sleep} from '@ton/blueprint';
 
 export async function run(provider: NetworkProvider, args: string[]) {
@@ -15,7 +15,7 @@ export async function run(provider: NetworkProvider, args: string[]) {
     const sand = provider.open(Sand.createFromAddress(address));
 
     await sand.sendReset(provider.sender(), {
-        value: toNano('0.05'),
+        value: CALL_VALUE,
     });
 
     ui.write('Waiting for counter to reset...');

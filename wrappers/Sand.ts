@@ -1,4 +1,14 @@
-import {Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode} from '@ton/core';
+import {
+    Address,
+    beginCell,
+    Cell,
+    Contract,
+    contractAddress,
+    ContractProvider,
+    Sender,
+    SendMode,
+    toNano
+} from '@ton/core';
 
 export type SandConfig = {
     id: number;
@@ -15,6 +25,8 @@ export const Opcodes = {
 };
 
 export const CONTRACT_ADDRESS = Address.parse('kQBW5mOxGHqqu7HgVDxReAJTUmV4JXt5315Ac31DcG-tEPgj');
+export const CALL_VALUE = toNano('0.001');
+
 
 export class Sand implements Contract {
     constructor(readonly address: Address, readonly init?: { code: Cell; data: Cell }) {

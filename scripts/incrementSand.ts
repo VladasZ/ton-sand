@@ -1,5 +1,5 @@
 import {toNano} from '@ton/core';
-import {CONTRACT_ADDRESS, Sand} from '../wrappers/Sand';
+import {CALL_VALUE, CONTRACT_ADDRESS, Sand} from '../wrappers/Sand';
 import {NetworkProvider, sleep} from '@ton/blueprint';
 
 export async function run(provider: NetworkProvider, args: string[]) {
@@ -18,7 +18,7 @@ export async function run(provider: NetworkProvider, args: string[]) {
 
     await sand.sendIncrease(provider.sender(), {
         increaseBy: 1,
-        value: toNano('0.05'),
+        value: CALL_VALUE,
     });
 
     ui.write('Waiting for counter to increase...');
