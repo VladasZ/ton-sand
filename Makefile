@@ -12,3 +12,6 @@ inc:
 
 sand:
 	npx blueprint run sand --testnet --mnemonic --tonviewer
+
+build:
+	npx blueprint build VladasSand
