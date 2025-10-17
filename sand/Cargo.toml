@@ -11,3 +11,5 @@ name = "sand"
 default = []
 
 [dependencies]
+tokio = { workspace = true }
+tonlib-client = { workspace = true }

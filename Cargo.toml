@@ -13,6 +13,9 @@ version = "0.1.0"
 ignored = []
 
 [workspace.dependencies]
+anyhow = "1.0"
+tokio = { version = "1.48", features = ["full"] }
+tonlib-client = "0.26"
 
 [patch.crates-io]
 #wgpu = { path = "../3/wgpu/wgpu" }
