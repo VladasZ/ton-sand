@@ -36,7 +36,7 @@ fun onInternalMessage(in: InMessage) {
             // load contract storage lazily (efficient for large or partial reads/updates)
             var storage = lazy Storage.load();
 
-            storage.counter += 7;
+            storage.counter += 15;
             storage.save();
         }
 
@@ -44,13 +44,13 @@ fun onInternalMessage(in: InMessage) {
             // load contract storage lazily (efficient for large or partial reads/updates)
             var storage = lazy Storage.load();
 
-            storage.counter -= 7;
+            storage.counter -= 15;
             storage.save();
         }
 
         else => {
             // ignore empty messages, "wrong opcode" for others
-            assert (in.body.isEmpty()) throw 0x0007
+            assert (in.body.isEmpty()) throw 0xABCD
         }
     }
 }
