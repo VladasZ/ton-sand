@@ -26,33 +26,7 @@ struct (0x00000002) DecreaseCounter
 // this allows processing them with pattern matching
 type AllowedMessage = IncreaseCounter | DecreaseCounter
 
-// the main entrypoint: called when a contract receives an message from other contracts
 fun onInternalMessage(in: InMessage) {
-    // use `lazy` to defer loading fields until they are accessed
-    val msg = lazy AllowedMessage.fromSlice(in.body);
-
-    match (msg) {
-        IncreaseCounter => {
-            // load contract storage lazily (efficient for large or partial reads/updates)
-            var storage = lazy Storage.load();
-
-            storage.counter += 15;
-            storage.save();
-        }
-
-        DecreaseCounter => {
-            // load contract storage lazily (efficient for large or partial reads/updates)
-            var storage = lazy Storage.load();
-
-            storage.counter -= 15;
-            storage.save();
-        }
-
-        else => {
-            // ignore empty messages, "wrong opcode" for others
-            assert (in.body.isEmpty()) throw 0xABCD
-        }
-    }
 }
 
 get fun currentCounter(): int {

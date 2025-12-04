@@ -19,3 +19,4 @@ export async function run(provider: NetworkProvider) {
 
     console.log('ID', await sand.getID());
 }
+
